@@ -28,9 +28,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\circuit.h" />
+    <ClInclude Include="src\csLink.h" />
     <ClInclude Include="src\EventList.h" />
     <ClInclude Include="src\LogicCell.h" />
     <ClInclude Include="src\LogicInp.h" />
+    <ClInclude Include="src\LogicModul.h" />
     <ClInclude Include="src\LogicOut.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -50,5 +50,11 @@
     <ClInclude Include="src\LogicOut.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\LogicModul.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\csLink.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

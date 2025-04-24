@@ -1,19 +1,16 @@
 #pragma once
+#include "csLink.h"
 class csLogicCell;
 
-class csLogicInp {
+
+class csLogicInp : public csLink {
 public:
 	csLogicInp(csLogicCell* parent);
 	void setInput(int Value);
-
-	void setNextConnection(csLogicInp* nextCon);
-	csLogicInp* NextConnection() { return mNextConnection; }
 	int InpValue;
+
 protected:
 	virtual void InputChanged(int newValue);
 	csLogicCell *mParentCell;
-private:
-	csLogicInp* mNextConnection;
-
 };
 

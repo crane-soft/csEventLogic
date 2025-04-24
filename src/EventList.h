@@ -1,8 +1,6 @@
 #pragma once
-#include <stdio.h>
 
 class csEvent {
-public:
 public:
 	csEvent() {
 		mEventTime_ns = 0;
@@ -30,7 +28,6 @@ public:
 	}
 	void Clear() {
 		mNextEvent = 0;
-		mEventTime_ns = 0;
 	}
 
 private:
@@ -41,51 +38,11 @@ private:
 class csEventList
 {
 public:
-	csEventList() {
-		mEventsRoot = 0;
-		mCurrentTime_ns = 0;
-	}
-	void InsertEvent(csEvent* newEvent, int delay) {
-		long EventTime = mCurrentTime_ns + delay;
-		if (newEvent->EventTime() != 0)
-			return; // should not happen
+	csEventList();
+	void InsertEvent(csEvent* newEvent, int delay);
+	void InsertFront(csEvent* newEvent);
+	csEvent* TakeRootEvent();
 
-		newEvent->setEventTime(EventTime);
-		if (mEventsRoot == 0) {
-			mEventsRoot = newEvent;
-		} else {
-			csEvent* prevEvent = 0;
-			csEvent* iEvent;
-			for (iEvent = mEventsRoot; iEvent != 0; iEvent = iEvent->NextEvent()) {
-				if (EventTime < iEvent->EventTime()) {
-					break;
-				}
-				prevEvent = iEvent;
-			}
-			if (prevEvent == 0) {
-				InsertFront(newEvent);
-			} else {
-				prevEvent->InsertAfter(newEvent);
-			}
-		}
-	}
-
-	void InsertFront(csEvent* newEvent) {
-		csEvent* prevRoot = mEventsRoot;
-		mEventsRoot = newEvent;
-		mEventsRoot->setNextEvent(prevRoot);
-	}
-
-	csEvent* TakeRootEvent() {
-		csEvent* fEvent = mEventsRoot;
-		if (fEvent != 0) {
-			mCurrentTime_ns = fEvent->EventTime();
-			printf("EV:%4d ", mCurrentTime_ns);
-			mEventsRoot = mEventsRoot->NextEvent();
-			fEvent->Clear();
-		}
-		return fEvent;
-	}
 private:
 	long mCurrentTime_ns;
 	csEvent * mEventsRoot;

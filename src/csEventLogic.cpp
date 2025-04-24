@@ -1,45 +1,40 @@
 #include "LogicCell.h"
 #include "LogicOut.h"
 #include "EventList.h"
+#include "LogicModul.h"
 
-void BuilsNetlist() {
-	
-	csEventList EventList;
-	csClock InpClock(EventList);
-	csTFFac TFF1(EventList), TFF2(EventList), TFF3(EventList), TFF4(EventList);
-	csAndGate AndGate(EventList);
+#include <iostream>
+#include <iomanip>
 
+csEventList EventList;
+csClock InpClock(EventList);
+cs4BitRippleCnt RippleCnt(EventList);
+csAndGate AndGate(EventList);
+
+void BuilsNetlist()
+{
 	InpClock.setName(" CLK");
 	AndGate.setName(" AND");
-	TFF1.setName("TFF1");
-	TFF2.setName("TFF2");
-	TFF3.setName("TFF3");
-	TFF4.setName("TFF4");
 
-	InpClock.OutY().AddConnection(TFF1.ToggleInp());
-	TFF1.OutQ().AddConnection(TFF2.ToggleInp());
-	TFF2.OutQ().AddConnection(TFF3.ToggleInp());
-	TFF3.OutQ().AddConnection(TFF4.ToggleInp());
-
-	TFF3.OutQ().AddConnection(AndGate.InpA());
-	TFF4.OutQ().AddConnection(AndGate.InpB());
-	AndGate.OutY().AddConnection(TFF1.ClearInp());
-	AndGate.OutY().AddConnection(TFF2.ClearInp());
-	AndGate.OutY().AddConnection(TFF3.ClearInp());
-	AndGate.OutY().AddConnection(TFF4.ClearInp());
+	InpClock.OutY().addLink(RippleCnt.CP());
+	RippleCnt.Q2().addLink(AndGate.InpA());
+	RippleCnt.Q3().addLink(AndGate.InpB());
+	AndGate.OutY().addLink(RippleCnt.MR());
 
 	InpClock.Start(100);	// 100 ns = 10 MHz
 
 	csEvent* NextEvent;
 	while ((NextEvent = EventList.TakeRootEvent()) != 0 ) {
+		std::cout << "EV:" << std::setw(4) << NextEvent->EventTime() << " ";
 		csLogicOut* LogicOut = (csLogicOut*)NextEvent;
 		LogicOut->UpdateOutput();
-		printf(" %d%d%d%d %d\r\n",
-			TFF4.OutQ().OutValue(),
-			TFF3.OutQ().OutValue(),
-			TFF2.OutQ().OutValue(),
-			TFF1.OutQ().OutValue(),
-			AndGate.OutY().OutValue());
+		std::cout << " "
+			<< RippleCnt.Q3().OutValue()
+			<< RippleCnt.Q2().OutValue()
+			<< RippleCnt.Q1().OutValue()
+			<< RippleCnt.Q0().OutValue()
+			<< " " << AndGate.OutY().OutValue()
+			<< "\n";
 	}
 }
 

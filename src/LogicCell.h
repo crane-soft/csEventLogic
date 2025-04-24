@@ -1,7 +1,6 @@
 #pragma once
 #include "LogicInp.h"
 #include "LogicOut.h"
-#include <string>
 
 class csLogicCell
 {
@@ -17,7 +16,8 @@ public:
 		mInpA(this),
 		mInpB(this),
 		mOutY(EventList)
-	{}
+	{
+	}
 	void setName(std::string name);
 
 	csLogicInp* InpA() { return &mInpA;	}

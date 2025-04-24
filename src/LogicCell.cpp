@@ -50,7 +50,7 @@ void csClock::Start(int periode_ns) {
 	mHighPeriode = periode_ns / 2;
 	mLowPeriode = periode_ns / 2;
 	mStatus = 0;
-	mOutY.AddConnection(&mTriggerInp);
+	mOutY.addLink(&mTriggerInp);
 	AnyInputChanged();
 }
 
