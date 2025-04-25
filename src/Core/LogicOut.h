@@ -7,14 +7,15 @@ class csLogicInp;
 class csLogicOut : public csLink, protected csEvent
 {
 public:
-	csLogicOut(csEventList& EventList);
+	csLogicOut();
 	void setName(std::string name) {mOutName = name;}
 	void setOutEvent(int delay, int newValue);
 	void UpdateOutput();
 	int OutValue() const;
+	std::string OutName() { return mOutName; }
+	static csEventList EventList;
 
 private:
-	csEventList &mEvents;
 	int mNewValue;
 	int mOutValue;
 	std::string mOutName;

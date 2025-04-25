@@ -5,56 +5,64 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="LogicCells">
+      <UniqueIdentifier>{6b34b251-9081-4892-9527-1f3fe2678182}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LogicModuls">
+      <UniqueIdentifier>{c4ed6777-c70e-416f-90af-5232f625d4de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{ad9cbc7e-5354-4be5-a4c8-33bb14150ab7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\circuit.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\csEventLogic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\EventList.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\Core\EventList.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\LogicCell.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\Core\LogicInp.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\LogicInp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\LogicOut.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\Core\LogicOut.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\circuit.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\LogicCells\AndGate.h">
+      <Filter>LogicCells</Filter>
     </ClInclude>
-    <ClInclude Include="src\EventList.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\LogicCells\Clock.h">
+      <Filter>LogicCells</Filter>
     </ClInclude>
-    <ClInclude Include="src\LogicCell.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\LogicCells\DFFasc.h">
+      <Filter>LogicCells</Filter>
     </ClInclude>
-    <ClInclude Include="src\LogicInp.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\LogicCells\TFFac.h">
+      <Filter>LogicCells</Filter>
     </ClInclude>
-    <ClInclude Include="src\LogicOut.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\LogicModuls\RippleCnt.h">
+      <Filter>LogicModuls</Filter>
     </ClInclude>
-    <ClInclude Include="src\LogicModul.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\Core\csLink.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\csLink.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\Core\EventList.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\LogicCell.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\LogicInp.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\LogicOut.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

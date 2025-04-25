@@ -19,21 +19,22 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\circuit.cpp" />
+    <ClCompile Include="src\Core\EventList.cpp" />
+    <ClCompile Include="src\Core\LogicInp.cpp" />
+    <ClCompile Include="src\Core\LogicOut.cpp" />
     <ClCompile Include="src\csEventLogic.cpp" />
-    <ClCompile Include="src\EventList.cpp" />
-    <ClCompile Include="src\LogicCell.cpp" />
-    <ClCompile Include="src\LogicInp.cpp" />
-    <ClCompile Include="src\LogicOut.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\circuit.h" />
-    <ClInclude Include="src\csLink.h" />
-    <ClInclude Include="src\EventList.h" />
-    <ClInclude Include="src\LogicCell.h" />
-    <ClInclude Include="src\LogicInp.h" />
-    <ClInclude Include="src\LogicModul.h" />
-    <ClInclude Include="src\LogicOut.h" />
+    <ClInclude Include="src\Core\csLink.h" />
+    <ClInclude Include="src\Core\EventList.h" />
+    <ClInclude Include="src\Core\LogicCell.h" />
+    <ClInclude Include="src\Core\LogicInp.h" />
+    <ClInclude Include="src\Core\LogicOut.h" />
+    <ClInclude Include="src\LogicCells\AndGate.h" />
+    <ClInclude Include="src\LogicCells\Clock.h" />
+    <ClInclude Include="src\LogicCells\DFFasc.h" />
+    <ClInclude Include="src\LogicCells\TFFac.h" />
+    <ClInclude Include="src\LogicModuls\RippleCnt.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -105,6 +106,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>src/Core;src/LogicCells;src/LogicModuls;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
