@@ -7,7 +7,6 @@ public:
 		mLastLink = this;
 	}
 
-
 	void addLink(csLink* newLink) {
 		mLastLink->setLink(newLink);
 		mLastLink = newLink;
@@ -30,6 +29,4 @@ private:
 		mNextLink = newLink;
 		mLastLink = newLink->LastLink();
 	}
-
 };
-

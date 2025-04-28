@@ -25,7 +25,7 @@ void csLogicOut::UpdateOutput() {
 	if (mNextLink != 0) {
 		for (csLink * iLink = mNextLink; iLink != 0; iLink = iLink->NextLink()) {
 			csLogicInp* LogicInp = (csLogicInp*)iLink;
-			LogicInp->setInput(mOutValue);
+			LogicInp->setInput(mOutValue, EventTime());
 		}
 	}
 }

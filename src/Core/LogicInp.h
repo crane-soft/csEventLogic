@@ -5,12 +5,15 @@ class csLogicCell;
 
 class csLogicInp : public csLink {
 public:
+	csLogicInp();
 	csLogicInp(csLogicCell* parent);
-	void setInput(int Value);
+	void setParentCell(csLogicCell* parent);
+	void setInput(int Value, long EvTime);
 	int InpValue;
 
 protected:
 	virtual void InputChanged(int newValue);
 	csLogicCell *mParentCell;
+	long mChangedTime;
 };
 

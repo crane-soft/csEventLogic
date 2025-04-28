@@ -7,6 +7,7 @@ class csLogicCell
 public:
 	csLogicCell() {}
 	virtual void AnyInputChanged() {}
+
 };
 
 // Macro use to generate specialised InputChanged() override

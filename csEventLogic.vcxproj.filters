@@ -34,7 +34,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\LogicCells\AndGate.h">
+    <ClInclude Include="src\LogicCells\LogicGate.h">
       <Filter>LogicCells</Filter>
     </ClInclude>
     <ClInclude Include="src\LogicCells\Clock.h">
@@ -62,6 +62,12 @@
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\LogicOut.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LogicModuls\FrqDoubler.h">
+      <Filter>LogicModuls</Filter>
+    </ClInclude>
+    <ClInclude Include="ProbeAdapter.h">
       <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>

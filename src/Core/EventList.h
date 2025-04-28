@@ -16,6 +16,7 @@ public:
 	void setEventTime(long EventTime) {
 		mEventTime_ns = EventTime;
 	}
+
 	long EventTime() const {
 		return mEventTime_ns;
 	}
@@ -47,4 +48,3 @@ private:
 	long mCurrentTime_ns;
 	csEvent * mEventsRoot;
 };
-

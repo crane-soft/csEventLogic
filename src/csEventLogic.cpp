@@ -1,18 +1,21 @@
 #include "LogicCell.h"
-#include "AndGate.h"
+#include "LogicGate.h"
 #include "Clock.h"
 #include "TFFac.h"
 #include "LogicOut.h"
 #include "EventList.h"
 #include "RippleCnt.h"
+#include "FrqDoubler.h"
 
 #include <iostream>
 #include <iomanip>
 
 csEventList	csLogicOut::EventList;
 csClock InpClock;
-cs4BitRippleCnt<4> RippleCnt;
 csAndGate AndGate;
+csXorGate XorGate;
+
+cs4BitRippleCnt<4> RippleCnt;
 
 void printLog(long EvTime, csLogicOut* LogicOut) {
 
@@ -28,28 +31,48 @@ void printStatus() {
 	std::cout << " " << AndGate.OutY().OutValue() << "\n";
 }
 
-void BuilsNetlist()
+void TestRippleCount()
 {
 	InpClock.OutY().addLink(RippleCnt.CP());
-	RippleCnt.Q(2).addLink(AndGate.InpA());
-	RippleCnt.Q(3).addLink(AndGate.InpB());
+	RippleCnt.Q(2).addLink(AndGate.Inp(0));
+	RippleCnt.Q(3).addLink(AndGate.Inp(1));
 	AndGate.OutY().addLink(RippleCnt.MR());
 
 	InpClock.Start(100);	// 100 ns = 10 MHz
 
 	csEvent* NextEvent;
 	while ((NextEvent = csLogicOut::EventList.TakeRootEvent()) != 0 ) {
+		long EventTime = NextEvent->EventTime();
 		csLogicOut* LogicOut = (csLogicOut*)NextEvent;
 		LogicOut->UpdateOutput();
-
-		printLog(NextEvent->EventTime(), LogicOut);
+		printLog(EventTime, LogicOut);
 		printStatus();
 	}
 }
 
+
+void TestFrqDouble() 
+{
+	csFrqDoubler FrqDoubler;
+	csDelayGate DblFrqOut;
+
+	InpClock.OutY().addLink(FrqDoubler.CP());
+	FrqDoubler.OutY().addLink(DblFrqOut.Inp());
+	InpClock.Start(100);
+
+	csEvent* NextEvent;
+	while ((NextEvent = csLogicOut::EventList.TakeRootEvent()) != 0) {
+		long EventTime = NextEvent->EventTime();
+		csLogicOut* LogicOut = (csLogicOut*)NextEvent;
+		LogicOut->UpdateOutput();
+		printLog(EventTime, LogicOut);
+		std::cout << "\n";
+	}
+}
 int main()
 {
-	BuilsNetlist();
+	//TestRippleCount();
+	TestFrqDouble();
 }
 
 

@@ -32,6 +32,8 @@ private:
 			&& (mPresetInp.InpValue == 1)
 			&& (mClearInp.InpValue == 1)) {
 			int DataInp = mDataInp.InpValue;
+			
+			// TODO check setup time via mDataInp.mChangedTime
 			mOutQ.setOutEvent(5, DataInp);
 			mNotQ.setOutEvent(5, DataInp ^1);
 		}
