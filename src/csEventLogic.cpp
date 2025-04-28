@@ -53,9 +53,9 @@ void TestRippleCount()
 
 void TestFrqDouble() 
 {
-	csFrqDoubler FrqDoubler;
+	csFrqDoubler FrqDoubler(15);
 	csDelayGate DblFrqOut;
-
+	DblFrqOut.setName("FOUT");
 	InpClock.OutY().addLink(FrqDoubler.CP());
 	FrqDoubler.OutY().addLink(DblFrqOut.Inp());
 	InpClock.Start(100);

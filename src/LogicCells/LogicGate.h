@@ -1,6 +1,7 @@
 #pragma once
 #include "LogicCell.h"
 #include <vector>
+#include <format>
 
 typedef int (*LogicFunc_t)(int A, int B);
 inline int  AndFunc  (int A, int B)  {return A & B;}
@@ -22,6 +23,9 @@ public:
 
 	void setName(std::string name) {
 		mOutY.setName(name + ".Y");
+		for (int i = 0; i < NumInp; ++i) {
+			mInp[i].setName(std::format("{}.IN{}", name, i));
+		}
 	}
 
 	csLogicInp* Inp(int No) { return &mInp[No]; }
@@ -70,6 +74,7 @@ public:
 	}
 	void setName(std::string name) {
 		mOutY.setName(name + ".Y");
+		mInp.setName(name + ".I");
 	}
 
 	csLogicInp* Inp() { return &mInp; }

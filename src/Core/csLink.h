@@ -1,15 +1,22 @@
 #pragma once
 #include <initializer_list>
+#include <string>
 class csLink {
 public:
 	csLink() {
 		mNextLink = 0;
-		mLastLink = this;
 	}
 
+	void setName(std::string name) { LinkName = name; }
+
 	void addLink(csLink* newLink) {
-		mLastLink->setLink(newLink);
-		mLastLink = newLink;
+		if (mNextLink == 0) {
+			mNextLink = newLink;
+		} else {
+			// newLink may hav already some links
+			newLink->appendLink(mNextLink);
+			mNextLink = newLink;
+		}
 	}
 		
 	void addLinks(std::initializer_list<csLink*> list) {
@@ -19,14 +26,22 @@ public:
 	}
 
 	csLink* NextLink() { return mNextLink; }
-	csLink* LastLink() { return mLastLink; }
 
 protected:
 	csLink* mNextLink;
-	csLink* mLastLink;
+	std::string LinkName;
+
 private:
-	void setLink(csLink* newLink) {
-		mNextLink = newLink;
-		mLastLink = newLink->LastLink();
+	void appendLink(csLink *nLink) {
+		if (mNextLink == 0) {
+			mNextLink = nLink;
+		} else {
+			csLink* iLink = mNextLink;
+
+			while (iLink->mNextLink != 0) {
+				iLink = iLink->mNextLink;
+			}
+			iLink->mNextLink = nLink;
+		}
 	}
 };
