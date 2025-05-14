@@ -4,7 +4,8 @@
 class csClock : public csLogicCell {
 public:
 
-	csClock() :
+	csClock(csEventList& EventList) :
+		mOutY(EventList),
 		mTriggerInp(this),
 		mPeriode_ns(0),
 		mHighPeriode(0),
@@ -15,6 +16,7 @@ public:
 	}
 	void setName(std::string name) {
 		mOutY.setName(name + ".Y");
+		mTriggerInp.setName(name + ".I");
 	}
 
 	void Start(int periode_ns) {

@@ -7,14 +7,15 @@ public:
 		mNextLink = 0;
 	}
 
-	void setName(std::string name) { LinkName = name; }
+	void setName(std::string name) { mLinkName = name; }
+	std::string Name() { return mLinkName; }
 
 	void addLink(csLink* newLink) {
 		if (mNextLink == 0) {
 			mNextLink = newLink;
 		} else {
-			// newLink may hav already some links
-			newLink->appendLink(mNextLink);
+			// newLink may have already some links
+			newLink->append(mNextLink);
 			mNextLink = newLink;
 		}
 	}
@@ -25,14 +26,7 @@ public:
 		}
 	}
 
-	csLink* NextLink() { return mNextLink; }
-
-protected:
-	csLink* mNextLink;
-	std::string LinkName;
-
-private:
-	void appendLink(csLink *nLink) {
+	void append(csLink* nLink) {
 		if (mNextLink == 0) {
 			mNextLink = nLink;
 		} else {
@@ -44,4 +38,10 @@ private:
 			iLink->mNextLink = nLink;
 		}
 	}
+
+	csLink* NextLink() { return mNextLink; }
+
+protected:
+	csLink* mNextLink;
+	std::string mLinkName;
 };

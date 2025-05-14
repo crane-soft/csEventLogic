@@ -4,18 +4,19 @@
 #include <iostream>
 #include <iomanip>
 
-csLogicOut::csLogicOut() 
+csLogicOut::csLogicOut(csEventList& EventList) :
+	mEventList(EventList)
 {
 	mOutValue = 0;
 	mNewValue = -1;	// need for first change event
-	mOutName = "nc";
+	setName( "nc");
 }
 
 void csLogicOut::setOutEvent(int delay, int newValue) {
 	if (newValue != mNewValue) {
 		mNewValue = newValue;
 		if (mNextLink != 0) {
-			EventList.InsertEvent(this, delay);
+			mEventList.InsertEvent(this, delay);
 		}
 	}
 }

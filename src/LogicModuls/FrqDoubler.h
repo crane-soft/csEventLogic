@@ -1,10 +1,13 @@
 #pragma once
-#include "LogicGate.h"
+#include "DelayCell.h"
 
 class csFrqDoubler
 {
 public:
-	csFrqDoubler(int Delay = 5) {
+	csFrqDoubler(csEventList& EventList,int Delay = 5) :
+		mXor(EventList),
+		mDelay(EventList)
+	{
 		mXor.Inp(0)->addLink(mDelay.Inp());
 		mDelay.OutY().addLink(mXor.Inp(1));
 		setDelay(Delay);
@@ -16,5 +19,5 @@ public:
 	csLogicOut& OutY() { return mXor.OutY(); }
 private:
 	csXorGate<> mXor;	
-	csDelayGate mDelay;
+	csDelayCell mDelay;
 };

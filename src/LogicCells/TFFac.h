@@ -5,11 +5,13 @@
 class csTFFac : public csLogicCell
 {
 public:
-	csTFFac() :
-		mToggleInp(this),
-		mClearInp(this) {
+	csTFFac(csEventList& EventList) :
+		mOutQ(EventList),
+		mNotQ(EventList)
+	{
+		setParentCells({ &mToggleInp,&mClearInp });
 	}
-
+	
 	void setName(std::string name) {
 		mOutQ.setName(name + ".Q");
 		mNotQ.setName(name + ".N");
@@ -37,10 +39,18 @@ private:
 			mOutQ.setOutEvent(5, 0);
 			mNotQ.setOutEvent(5, 1);
 		}
-	}
+	} 
 
-	INP_OVRIDE(csTFFac, ToggleInp) mToggleInp;
-	INP_OVRIDE(csTFFac, ClearInp)  mClearInp;
+	class csToggleInp : public csLogicInp{
+		void InputChanged(int newValue) override {
+			reinterpret_cast<csTFFac*>(mParentCell)->setToggleInp(newValue);
+	}} mToggleInp;
+
+	class csClearInp : public csLogicInp {
+		void InputChanged(int newValue) override {
+			reinterpret_cast<csTFFac*>(mParentCell)->setClearInp(newValue);
+		}
+	} mClearInp;
 
 	csLogicOut mOutQ;
 	csLogicOut mNotQ;

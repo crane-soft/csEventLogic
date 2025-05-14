@@ -1,78 +1,49 @@
-#include "LogicCell.h"
+
 #include "LogicGate.h"
-#include "Clock.h"
-#include "TFFac.h"
-#include "LogicOut.h"
-#include "EventList.h"
 #include "RippleCnt.h"
 #include "FrqDoubler.h"
+#include "LogicApp.h"
 
-#include <iostream>
-#include <iomanip>
-
-csEventList	csLogicOut::EventList;
-csClock InpClock;
-csAndGate AndGate;
-csXorGate XorGate;
-
-cs4BitRippleCnt<4> RippleCnt;
-
-void printLog(long EvTime, csLogicOut* LogicOut) {
-
-	std::cout << "EV:" << std::setw(4) << EvTime
-		<< std::setw(7) << LogicOut->OutName() 
-		<< "=" << LogicOut->OutValue();
-}
-
-void printStatus() {
-	std::cout << " ";
-	for (int i = 3; i >= 0; --i)
-		std::cout << RippleCnt.Q(i).OutValue();
-	std::cout << " " << AndGate.OutY().OutValue() << "\n";
-}
-
-void TestRippleCount()
+class csTestRippleCount : public csLogicApp
 {
-	InpClock.OutY().addLink(RippleCnt.CP());
-	RippleCnt.Q(2).addLink(AndGate.Inp(0));
-	RippleCnt.Q(3).addLink(AndGate.Inp(1));
-	AndGate.OutY().addLink(RippleCnt.MR());
-
-	InpClock.Start(100);	// 100 ns = 10 MHz
-
-	csEvent* NextEvent;
-	while ((NextEvent = csLogicOut::EventList.TakeRootEvent()) != 0 ) {
-		long EventTime = NextEvent->EventTime();
-		csLogicOut* LogicOut = (csLogicOut*)NextEvent;
-		LogicOut->UpdateOutput();
-		printLog(EventTime, LogicOut);
-		printStatus();
+public:
+	csTestRippleCount() :
+		RippleCnt(EventList),
+		AndGate(EventList)
+	{
+		MainClock.OutY().addLink(RippleCnt.CP());
+		RippleCnt.Q(2).addLink(AndGate.Inp(0));
+		RippleCnt.Q(3).addLink(AndGate.Inp(1));
+		AndGate.OutY().addLink(RippleCnt.MR());
+		ProbeAdapter.AddProbes({ &AndGate.OutY(),&RippleCnt.Q(3), &RippleCnt.Q(2),&RippleCnt.Q(1),&RippleCnt.Q(0) });
 	}
-}
+
+private:
+	csRippleCnt<4> RippleCnt;
+	csAndGate<> AndGate;
+};
 
 
-void TestFrqDouble() 
+class csTestFrqDouble : public csLogicApp
 {
-	csFrqDoubler FrqDoubler(15);
-	csDelayGate DblFrqOut;
-	DblFrqOut.setName("FOUT");
-	InpClock.OutY().addLink(FrqDoubler.CP());
-	FrqDoubler.OutY().addLink(DblFrqOut.Inp());
-	InpClock.Start(100);
-
-	csEvent* NextEvent;
-	while ((NextEvent = csLogicOut::EventList.TakeRootEvent()) != 0) {
-		long EventTime = NextEvent->EventTime();
-		csLogicOut* LogicOut = (csLogicOut*)NextEvent;
-		LogicOut->UpdateOutput();
-		printLog(EventTime, LogicOut);
-		std::cout << "\n";
+public:
+	csTestFrqDouble() :
+		FrqDoubler(EventList, 15)
+	{
+		MainClock.OutY().addLink(FrqDoubler.CP());
+		ProbeAdapter.AddProbes({ &MainClock.OutY(),&FrqDoubler.OutY() });
 	}
-}
+private:
+	csFrqDoubler FrqDoubler;
+};
+
 int main()
 {
-	//TestRippleCount();
-	TestFrqDouble();
+	csTestRippleCount TestRippleCount;
+	csTestFrqDouble TestFrqDouble;
+
+	//TestRippleCount.Start(100,1500);
+	TestFrqDouble.Start(100, 500);
 }
 
 

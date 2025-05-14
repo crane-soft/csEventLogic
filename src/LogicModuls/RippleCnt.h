@@ -1,11 +1,14 @@
 #pragma once
 #include "TFFac.h"
 #include <format>
+#include <array>
+#include <utility>
 
 template<const int CntWidth>
-class cs4BitRippleCnt {
+class csRippleCnt {
 public:
-	cs4BitRippleCnt() 
+	csRippleCnt(csEventList& EventList) :
+		csRippleCnt(EventList,std::make_index_sequence<CntWidth>{})
 	{
 		setName("CNT");
 		for (int i = 1; i < CntWidth; ++i) {
@@ -15,8 +18,10 @@ public:
 	}
 	void setName(std::string name) {
 		for (int i = 0; i < CntWidth; ++i) {
-			TFF[i].setName(std::format("{}{}",name, i));
-			TFF[i].ClearInp()->setName(std::format("{}{}.R", name, i));
+			std::string FFname = std::format("{}.FF{}", name, i);
+			TFF[i].setName(FFname);
+			TFF[i].ClearInp()->setName(FFname + ".R");
+			TFF[i].ToggleInp()->setName(FFname + ".T");
 		}
 	}
 	csLogicInp* CP() { return TFF[0].ToggleInp(); }
@@ -25,5 +30,7 @@ public:
 	csLogicOut& Q(int No) { return TFF[No].OutQ(); }
 
 private:
-	csTFFac TFF[CntWidth];
+	template <std::size_t... Is>
+	explicit csRippleCnt(csEventList& EventList, std::index_sequence<Is...>) : TFF{ (Is, EventList)... } {}
+	std::array<csTFFac, CntWidth> TFF;
 };

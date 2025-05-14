@@ -20,17 +20,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\EventList.cpp" />
+    <ClCompile Include="src\Core\LogicApp.cpp" />
     <ClCompile Include="src\Core\LogicInp.cpp" />
     <ClCompile Include="src\Core\LogicOut.cpp" />
     <ClCompile Include="src\csEventLogic.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ProbeAdapter.h" />
     <ClInclude Include="src\Core\csLink.h" />
     <ClInclude Include="src\Core\EventList.h" />
+    <ClInclude Include="src\Core\LogicApp.h" />
     <ClInclude Include="src\Core\LogicCell.h" />
     <ClInclude Include="src\Core\LogicInp.h" />
     <ClInclude Include="src\Core\LogicOut.h" />
+    <ClInclude Include="src\Core\ProbeAdapter.h" />
+    <ClInclude Include="src\LogicCells\DelayCell.h" />
     <ClInclude Include="src\LogicCells\LogicGate.h" />
     <ClInclude Include="src\LogicCells\Clock.h" />
     <ClInclude Include="src\LogicCells\DFFasc.h" />

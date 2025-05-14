@@ -6,11 +6,11 @@
 class csDFFasc : public csLogicCell
 {
 public:
-	csDFFasc() :
-		mClockInp(this),
-		mPresetInp(this),
-		mClearInp(this),
-		mDataInp(this) {
+	csDFFasc(csEventList& EventList) :
+		mOutQ(EventList),
+		mNotQ(EventList)
+	{
+		setParentCells({ &mClockInp,&mPresetInp,&mClearInp,&mDataInp });
 	}
 
 	void setName(std::string name) {
@@ -55,9 +55,23 @@ private:
 		}
 	}
 
-	INP_OVRIDE(csDFFasc, ClockInp) mClockInp;
-	INP_OVRIDE(csDFFasc, PresetInp) mPresetInp;
-	INP_OVRIDE(csDFFasc, ClearInp) mClearInp;
+	class csClockInp : public csLogicInp {
+		void InputChanged(int newValue) override {
+			reinterpret_cast<csDFFasc*>(mParentCell)->setClockInp(newValue);
+		}
+	} mClockInp;
+
+	class csPresetInp : public csLogicInp {
+		void InputChanged(int newValue) override {
+			reinterpret_cast<csDFFasc*>(mParentCell)->setPresetInp(newValue);
+		}
+	} mPresetInp;
+
+	class csClearInp : public csLogicInp {
+		void InputChanged(int newValue) override {
+			reinterpret_cast<csDFFasc*>(mParentCell)->setClearInp(newValue);
+		}
+	} mClearInp;
 
 	csLogicInp mDataInp;
 	csLogicOut mOutQ;

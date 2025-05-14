@@ -32,6 +32,9 @@
     <ClCompile Include="src\Core\LogicOut.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\Core\LogicApp.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\LogicCells\LogicGate.h">
@@ -67,7 +70,13 @@
     <ClInclude Include="src\LogicModuls\FrqDoubler.h">
       <Filter>LogicModuls</Filter>
     </ClInclude>
-    <ClInclude Include="ProbeAdapter.h">
+    <ClInclude Include="src\Core\ProbeAdapter.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LogicCells\DelayCell.h">
+      <Filter>LogicCells</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\LogicApp.h">
       <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
