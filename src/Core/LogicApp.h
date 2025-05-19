@@ -7,7 +7,7 @@ class csLogicApp
 {
 public:
 	csLogicApp() : 
-		MainClock(EventList)
+		MainClock(&EventList)
 	{}
 	csClock MainClock;
 	csEventList	EventList;

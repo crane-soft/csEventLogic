@@ -7,7 +7,8 @@ class csLogicInp;
 class csLogicOut : public csLink, protected csEvent
 {
 public:
-	csLogicOut(csEventList& EventList);
+	csLogicOut(csEventList* EventList = 0);
+	void setEventList(csEventList* EventList) { mEventList = EventList; }
 	void setOutEvent(int delay, int newValue);
 	void UpdateOutput();
 	int OutValue() const;
@@ -15,6 +16,6 @@ public:
 private:
 	int mNewValue;
 	int mOutValue;
-	csEventList &mEventList;
+	csEventList *mEventList;
 };
 

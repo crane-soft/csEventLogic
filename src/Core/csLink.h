@@ -1,10 +1,13 @@
 #pragma once
 #include <initializer_list>
 #include <string>
+#include <iostream>
+
 class csLink {
 public:
 	csLink() {
 		mNextLink = 0;
+		mLinkName = "";
 	}
 
 	void setName(std::string name) { mLinkName = name; }
@@ -39,6 +42,15 @@ public:
 		}
 	}
 
+	void printNet(std::string rootNode = "") {
+
+		std::cout << rootNode << "->" << mLinkName;
+		if (mNextLink != 0) {
+			mNextLink->printNet();
+		} else {
+			std::cout << "\r\n";
+		}
+	}
 	csLink* NextLink() { return mNextLink; }
 
 protected:

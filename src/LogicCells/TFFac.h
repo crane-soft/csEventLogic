@@ -5,13 +5,16 @@
 class csTFFac : public csLogicCell
 {
 public:
-	csTFFac(csEventList& EventList) :
+	csTFFac(csEventList* EventList = 0) :
 		mOutQ(EventList),
 		mNotQ(EventList)
 	{
 		setParentCells({ &mToggleInp,&mClearInp });
 	}
-	
+	void setEventList(csEventList* EventList) {
+		mOutQ.setEventList(EventList);
+		mNotQ.setEventList(EventList);
+	}
 	void setName(std::string name) {
 		mOutQ.setName(name + ".Q");
 		mNotQ.setName(name + ".N");

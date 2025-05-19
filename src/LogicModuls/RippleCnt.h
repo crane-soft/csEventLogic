@@ -1,17 +1,16 @@
 #pragma once
 #include "TFFac.h"
 #include <format>
-#include <array>
-#include <utility>
 
 template<const int CntWidth>
 class csRippleCnt {
 public:
-	csRippleCnt(csEventList& EventList) :
-		csRippleCnt(EventList,std::make_index_sequence<CntWidth>{})
+	csRippleCnt(csEventList* EventList) 
 	{
 		setName("CNT");
+		TFF[0].setEventList(EventList);
 		for (int i = 1; i < CntWidth; ++i) {
+			TFF[i].setEventList(EventList);
 			TFF[i-1].OutQ().addLink(TFF[i].ToggleInp());
 			TFF[0].ClearInp()->addLink(TFF[i].ClearInp());
 		}
@@ -30,7 +29,5 @@ public:
 	csLogicOut& Q(int No) { return TFF[No].OutQ(); }
 
 private:
-	template <std::size_t... Is>
-	explicit csRippleCnt(csEventList& EventList, std::index_sequence<Is...>) : TFF{ (Is, EventList)... } {}
-	std::array<csTFFac, CntWidth> TFF;
+	csTFFac TFF[CntWidth];
 };

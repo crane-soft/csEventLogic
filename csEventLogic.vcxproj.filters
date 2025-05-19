@@ -79,5 +79,8 @@
     <ClInclude Include="src\Core\LogicApp.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\LogicModuls\4BitAdder.h">
+      <Filter>LogicModuls</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

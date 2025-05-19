@@ -6,7 +6,7 @@
 class csDFFasc : public csLogicCell
 {
 public:
-	csDFFasc(csEventList& EventList) :
+	csDFFasc(csEventList* EventList) :
 		mOutQ(EventList),
 		mNotQ(EventList)
 	{

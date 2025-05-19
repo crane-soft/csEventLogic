@@ -4,7 +4,7 @@
 #include <iostream>
 #include <iomanip>
 
-csLogicOut::csLogicOut(csEventList& EventList) :
+csLogicOut::csLogicOut(csEventList* EventList) :
 	mEventList(EventList)
 {
 	mOutValue = 0;
@@ -15,8 +15,8 @@ csLogicOut::csLogicOut(csEventList& EventList) :
 void csLogicOut::setOutEvent(int delay, int newValue) {
 	if (newValue != mNewValue) {
 		mNewValue = newValue;
-		if (mNextLink != 0) {
-			mEventList.InsertEvent(this, delay);
+		if (mEventList != 0) {
+			mEventList->InsertEvent(this, delay);
 		}
 	}
 }

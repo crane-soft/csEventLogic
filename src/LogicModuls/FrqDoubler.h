@@ -4,7 +4,7 @@
 class csFrqDoubler
 {
 public:
-	csFrqDoubler(csEventList& EventList,int Delay = 5) :
+	csFrqDoubler(csEventList* EventList,int Delay = 5) :
 		mXor(EventList),
 		mDelay(EventList)
 	{

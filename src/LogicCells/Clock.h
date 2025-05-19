@@ -4,13 +4,14 @@
 class csClock : public csLogicCell {
 public:
 
-	csClock(csEventList& EventList) :
+	csClock(csEventList* EventList) :
 		mOutY(EventList),
 		mTriggerInp(this),
 		mPeriode_ns(0),
 		mHighPeriode(0),
 		mLowPeriode(0),
-		mStatus(0) 
+		mStatus(0),
+		edgeStatus(-1)
 	{
 		setName("CLK");
 	}
@@ -28,6 +29,14 @@ public:
 		AnyInputChanged();
 	}
 
+	bool risingEdge() {
+		bool rising = false;
+		if (edgeStatus >= 0) {
+			rising = (edgeStatus > 0);
+			edgeStatus = -1;
+		}
+		return rising;
+	}
 	csLogicInp* TriggerInp() { return &mTriggerInp; }
 	csLogicOut& OutY() { return mOutY; }
 
@@ -40,6 +49,7 @@ private:
 			mOutY.setOutEvent(mHighPeriode, 0);
 			mStatus = 0;
 		}
+		edgeStatus = mStatus;
 	}
 
 	csLogicInp mTriggerInp;
@@ -49,4 +59,5 @@ private:
 	long mHighPeriode;
 	long mLowPeriode;
 	int mStatus;
+	int edgeStatus;
 };

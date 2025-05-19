@@ -38,6 +38,7 @@
     <ClInclude Include="src\LogicCells\Clock.h" />
     <ClInclude Include="src\LogicCells\DFFasc.h" />
     <ClInclude Include="src\LogicCells\TFFac.h" />
+    <ClInclude Include="src\LogicModuls\4BitAdder.h" />
     <ClInclude Include="src\LogicModuls\FrqDoubler.h" />
     <ClInclude Include="src\LogicModuls\RippleCnt.h" />
   </ItemGroup>
