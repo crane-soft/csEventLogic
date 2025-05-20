@@ -4,6 +4,7 @@
 #include "FrqDoubler.h"
 #include "LogicApp.h"
 #include "4BitAdder.h"
+
 class csTestRippleCount : public csLogicApp
 {
 public:

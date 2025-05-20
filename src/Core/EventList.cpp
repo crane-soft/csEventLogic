@@ -11,6 +11,7 @@ void csEventList::InsertEvent(csEvent* newEvent, int delay) {
 			return;
 		RemoveEvent(newEvent);
 	}
+
 	newEvent->setEventTime(EventTime);
 	newEvent->setPending();
 	if (mEventsRoot == 0) {
@@ -32,7 +33,6 @@ void csEventList::InsertEvent(csEvent* newEvent, int delay) {
 }
 
 void csEventList::RemoveEvent(csEvent* Event) {
-	// vorerst mit Schleife da kein prev-pointer
 	csEvent* prevEvent = 0;
 
 	for (csEvent* iEvent = mEventsRoot; iEvent != 0; iEvent = iEvent->NextEvent()) {

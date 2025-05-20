@@ -23,9 +23,6 @@ void csLogicApp::Run()
 	int dbgStatus = 0;
 	while ((NextEvent = EventList.TakeRootEvent()) != 0) {
 		long EventTime = NextEvent->EventTime();
-		if (EventTime == 209) {
-			dbgStatus = 1;
-		}
 		csLogicOut* LogicOut = (csLogicOut*)NextEvent;
 		LogicOut->UpdateOutput();
 		
